@@ -38,6 +38,7 @@
     - mais de 1000 km
     - Internet
     - Composta por multiplas LANs e MANs interconectadas
+  - Quando é adicionado um "W" na frente significa redes sem fio (wireless)
 
 ## Layers
 
