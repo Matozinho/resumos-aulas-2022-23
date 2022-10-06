@@ -72,7 +72,7 @@
       - Processos grandes demoram muito para serem executados
       - Processos pequenos ficam esperando muito tempo
 
-**b) Menor tarefa primeiro (SJS - shortest job first)**
+**b) Menor tarefa primeiro (SJF - shortest job first)**
 
   - Escolher a menor tarefa na fila de prontos
     - Tarefa com menor tempo de execução (tempo de CPU)
@@ -81,22 +81,116 @@
 
 **b.1 Não Preemptiva**
 
-| Processo | Tcpu | Tex | Tesp |
-| -------- | ---- | --- | ---- |
-| p0       | 10   | 21  | 11   |
-| p1       | 5    | 11  | 6    |
-| p2       | 3    | 3   | 0    |
-| p3       | 3    | 6   | 3    |
+| Processo | Tcpu  |  Tex  | Tesp  |
+| :------: | :---: | :---: | :---: |
+|    p0    |  10   |  21   |  11   |
+|    p1    |   5   |  11   |   6   |
+|    p2    |   3   |   3   |   0   |
+|    p3    |   3   |   6   |   3   |
 
 **b.2 Preemptiva**
 
 | **Processo** | **Tcpu** | **Tcheg** | **Tex** | **Tesp** |
-|--------------|----------|-----------|---------|----------|
-| p0           | 10       | 0         | 21      | 11       |
-| p1           | 5        | 1         | 11      | 6        |
-| p2           | 3        | 2         | 3       | 0        |
-| p3           | 3        | 3         | 3       | 2        |
+| :----------: | :------: | :-------: | :-----: | :------: |
+|      p0      |    10    |     0     |   21    |    11    |
+|      p1      |    5     |     1     |   11    |    6     |
+|      p2      |    3     |     2     |    3    |    0     |
+|      p3      |    3     |     3     |    3    |    2     |
 
   - Executa **UMA** unidade de tempo e avalia novamente de acordo com todos os tempos na fila
     - considerando a chegada de novas tarefas
   - Preemptiva pq remove o processo da CPU, sem a necessidade de uma chamada de interrupção
+
+**c) Escalonamento por Prioridades**
+  - Escolha do processo que vai ganhar CPU é definida pela prioridade. SJF (um caso particular)
+  - tipicamente utilizada para favorecer o tempo de resposta
+  - preemptiva e não preemptiva
+  - sujeito ao starvation (inanição) => processo nunca ganha CPU
+    - solução: aging (envelhecimento) => aumentar a prioridade de um processo que está esperando há muito tempo
+
+**d) Round Robin (alocação circular)**
+  - escalonador preemptivo
+  - cada processo ganha uma fatia de tempo de CPU
+  - garantir que todos os processos possam usar a CPU
+  - quantum (fatia de tempo)
+    - Pequeno: pouco tempo de uso da CPU, overhead de troca de contexto
+    - grande: FCFS
+
+**Exemplo: Calcule o tempo de exec e espera considerando um quantum de 5**
+
+| **Processo** | **Tcpu** | **Texec** | **Tesp**  |
+| :----------: | :------: | :-------: | :-------: |
+|      p0      |    5     |     5     |     0     |
+|      p1      |    10    |    24     |    14     |
+|      p2      |    4     |    14     |    10     |
+|      p3      |    7     |    26     |    19     |
+|  **média**   |          | **17.25** | **10.75** |
+
+p0: 5 -> 0 \
+p1: 10 -> 5 -> 0 \
+p2: 4 -> 0 \
+p3: 7 -> 2 -> 0 
+
+0 - 5: p0 \
+5 - 10: p1 \
+10 - 14: p2 \
+14 - 19: p3 \
+19 - 24: p1 \
+24 - 26: p3 \
+
+**Calcule o tempo médio de exec e de espera nas políticas**
+| **Processo** | **Tcpu** | **Tchegada** |
+| :----------: | :------: | :----------: |
+|      p0      |    8     |      0       |
+|      p1      |    3     |      1       |
+|      p2      |    10    |      2       |
+|    média     |          |              |
+
+**a)** FCFS
+| **Processo** | **Tcpu** | **Tchegada** | **Texec** | **Tesp** |
+| :----------: | :------: | :----------: | :-------: | :------: |
+|      p0      |    8     |      0       |     8     |    0     |
+|      p1      |    3     |      1       |    10     |    7     |
+|      p2      |    10    |      2       |    19     |    9     |
+|    média     |          |              |   12.33   |   5.33   |
+
+0 - 8 -> p0 \
+8 - 11 -> p1 \
+11 - 21 -> p2 
+
+**b)** SJF preemptivo
+| **Processo** | **Tcpu** | **Tchegada** | **Texec** | **Tesp** |
+| :----------: | :------: | :----------: | :-------: | :------: |
+|      p0      |    8     |      0       |    11     |    3     |
+|      p1      |    3     |      1       |     3     |    0     |
+|      p2      |    10    |      2       |    19     |    9     |
+|    média     |          |              |    11     |    4     |
+
+0 - 1 -> p0 \
+1 - 4 -> p1 \
+4 - 11 -> p0 \
+11 - 21 -> p2 
+
+**c)** RR com q = 4
+| **Processo** | **Tcpu** | **Tchegada** | **Texec** | **Tesp** |
+| :----------: | :------: | :----------: | :-------: | :------: |
+|      p0      |    8     |      0       |    15     |    7     |
+|      p1      |    3     |      1       |     6     |    3     |
+|      p2      |    10    |      2       |    19     |    9     |
+|    média     |          |              |   13.33   |   6.33   |
+
+0 - 4 -> p0 \
+4 - 7 -> p1 \
+7 - 11 -> p2 \
+11 - 15 -> p0 \
+15 - 19 -> p2 \
+19 - 21 -> p2 
+
+## Escalonamento com múltiplas filas
+
+  <div align="center">
+    <img src="./assets/scheduling-filas.png" width="50%" />
+  </div>
+
+  - Com quantum pequeno são processos iterativos (editor de texto)
+  - Com quantum grande são processos de mais demanda de CPU
