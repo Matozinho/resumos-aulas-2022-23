@@ -70,3 +70,68 @@
     - Se X -> aYZ, onde a é um terminal, então Firs(a) está em First(X). o First de um terminal é o próprio terminal
     - Se X -> $\epsilon$ é uma produção, então adicione $\epsilon$ em First(X)
     - Se X -> YZW, onde Y, Z e W são não terminais, então First(X) contém First(Y)-{$\epsilon$}. Caso First(Y) pode ser $\epsilon$, então usa-se First(Z)-{$\epsilon$} e assim por diante. Ou seja, primeiro símbolo terminal a partir de X
+
+  **Follow**
+  - Follow de X é o conjunto de terminais que podem aparecer imediatamente à direita de X em alguma forma sentencial
+
+  **Construção da Tabela**
+
+  - Analisador preditivo
+
+                       ┌───────────┐
+                       │   input   │
+        ┌─────┐        └─────┬─────┘
+        │     │              │
+        │     │        ┌─────▼─────┐
+        │     │        │           │
+        │     │        │           │
+        │Pilha│▲───────┤    P.D    ├────► Saída/Erro
+        │     ├───────▼│           │
+        │     │        │           │
+        │     │        └──────▲────┘
+        │     │               │
+        └─────┘        ┌──────┴─────┐
+                       │            │
+                       │   Tabela   │
+                       │            │
+                       └────────────┘
+## Exercícios 
+
+3) b)
+   
+  S -> ABC \
+  A -> aA | $\epsilon$ \
+  B -> bB | CdA \
+  C -> cC | $\epsilon$ 
+
+|       |   **First**   | **Follow** |
+| :---: | :-----------: | :--------: |
+| **S** |  a, b, c, d   |     $      |
+| **A** | a, $\epsilon$ | b, c, d, $ |
+| **B** |    b, c, d    |    c, $    |
+| **C** | c, $\epsilon$ |    $, d    |
+
+| **tabela sintática preditiva** |  **a**   |      **b**      |      **c**      |      **d**      |      **$**      |
+| :----------------------------: | :------: | :-------------: | :-------------: | :-------------: | :-------------: |
+|             **S**              | S -> ABC |    S -> ABC     |    S -> ABC     |    S -> ABC     |                 |
+|             **A**              | A -> aA  | A -> $\epsilon$ | A -> $\epsilon$ | A -> $\epsilon$ | A -> $\epsilon$ |
+|             **B**              |          |     B -> bB     |    B -> CdA     |    B -> CdA     |                 |
+|             **C**              |          |                 |     C -> cC     | C -> $\epsilon$ | C -> $\epsilon$ |
+
+c)
+
+S -> 0A | 1B\
+A -> 1B | 2\
+B -> 0A | 2
+
+|       | **First** | **Follow** |
+| :---: | :-------: | :--------: |
+| **S** |    0,1    |     $      |
+| **A** |    1,2    |     $      |
+| **B** |    0,2    |     $      |
+
+| **tabela sintática preditiva** |  **0**  |  **1**  | **2**  | **$** |
+| :----------------------------: | :-----: | :-----: | :----: | :---: |
+|             **S**              | S -> 0A | S -> 1B |        |       |
+|             **A**              |         | A -> 1B | A -> 2 |       |
+|             **B**              | B -> 0A |         | B -> 2 |       |
