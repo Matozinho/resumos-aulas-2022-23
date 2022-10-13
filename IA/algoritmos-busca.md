@@ -52,3 +52,16 @@
      -  programação dinâmica é busca por tentativa
      -  busca em profundidade é busca por tentativa
      -  Métodos irrevogáveis normalmente encontram soluções subótimas para o problema
+
+## Busca Cega
+
+  - Procura em todo espaço de busca
+  - É ineficiente
+  - Aplicações em contextos pequenos
+
+## Busca Heurística
+
+  - Baseados em algum conhecimento que pode acelerar a solução do problema
+  - Mais informações do que o estado atual
+  - Exemplo de informação:
+    - Estimativa de distância entre o nó atual e o objetivo
