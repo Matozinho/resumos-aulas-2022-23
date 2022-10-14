@@ -135,3 +135,101 @@ B -> 0A | 2
 |             **S**              | S -> 0A | S -> 1B |        |       |
 |             **A**              |         | A -> 1B | A -> 2 |       |
 |             **B**              | B -> 0A |         | B -> 2 |       |
+
+**big exemple**
+
+P -> begin D C end \
+D -> int id I \
+I -> , id I | $\epsilon$ \
+C -> C ; T = E | T = E4 \
+E -> E + T | T \
+T -> id | id[E]
+
+**Removendo recursão à esquerda de C**
+C -> C ; T = E | T = E4 
+
+C == A \
+; T = E == $\beta$ \
+T=E == $\delta$ \
+
+C -> T=E C' \
+C' -> ; T=E C' | $\epsilon$
+
+**Removendo recursão à esquerda de E**
+E -> E + T | T 
+
+E -> TE' \
+E' -> + TE' | $\epsilon$
+
+**Removendo prefixo comum**
+T -> id | id[E]
+
+T -> id T' \
+T' -> [E] | $\epsilon$
+
+**Gramática Corrigida**
+
+P -> begin D C end \
+D -> int id I \
+I -> , id I | $\epsilon$ \
+C -> T=E C' \
+C' -> ; T=E C' | $\epsilon$ \
+E -> TE' \
+E' -> + TE' | $\epsilon$ \
+T -> id T' \
+T' -> [E] | $\epsilon$
+
+
+**First e Follow**
+
+|        |    **First**     |    **Follow**     |
+| :----: | :--------------: | :---------------: |
+| **P**  |      begin       |         $         |
+| **D**  |       int        |        id         |
+| **I**  | ',', $\epsilon$  |        id         |
+| **C**  |        id        |        end        |
+| **C'** | ';' , $\epsilon$ |        end        |
+| **E**  |        id        |    ';', end, ]    |
+| **E'** |  +, $\epsilon$   |    ';', end, ]    |
+| **T**  |        id        | =, +, ';', end, ] |
+| **T'** |  [, $\epsilon$   | =, +, ';', end, ] |
+
+## Validar essa Tabela (possível erro)
+================================================================================
+
+| **Tabela sintática preditiva** |     **begin**      |     **end**      |    **int**    |      **id**      |   **,**    |      **;**       |      **=**       |      **+**       |   **[**   |      **]**       | **$** |
+| :----------------------------: | :----------------: | :--------------: | :-----------: | :--------------: | :--------: | :--------------: | :--------------: | :--------------: | :-------: | :--------------: | :---: |
+|             **P**              | P -> begin D C end |                  |               |                  |            |                  |                  |                  |           |                  |       |
+|             **D**              |                    |                  | D -> int id I |                  |            |                  |                  |                  |           |                  |       |
+|             **I**              |                    |                  |               | I -> $\epsilon$  | I -> ,id I |                  |                  |                  |           |                  |       |
+|             **C**              |                    |                  |               |    C-> T=E C'    |            |                  |                  |                  |           |                  |       |
+|             **C'**             |                    | C' -> $\epsilon$ |               | C' -> ; T = E C' |            |                  |                  |                  |           |                  |       |
+|             **E**              |                    |     E -> TE'     |               |                  |            |                  |                  |                  |           |                  |       |
+|             **E'**             |                    | E' -> $\epsilon$ |               |                  |            | E' -> $\epsilon$ |                  |    E' -> +TE'    |           | E' -> $\epsilon$ |       |
+|             **T**              |                    |                  |               |    T -> id T'    |            |                  |                  |                  |           |                  |       |
+|             **T'**             |                    | T' -> $\epsilon$ |               |                  |            | T' -> $\epsilon$ | T' -> $\epsilon$ | T' -> $\epsilon$ | T' -> [E] | T' -> $\epsilon$ |       |
+
+================================================================================
+
+| Pilha               | Entrada                                 | Prod               |
+| ------------------- | --------------------------------------- | ------------------ |
+| $P                  | **begin** int id, id id = id[id+id] end | P -> begin D C end |
+| $end C D begin      | **begin** int id, id id = id[id+id] end |                    |
+| $end C D            | **int** id, id id = id[id+id] end       | D -> int id I      |
+| $end C I id int     | **int** id, id id = id[id+id] end       |                    |
+| $end C I id         | **id**, id id = id[id+id] end           |                    |
+| $end C I            | **,** id id = id[id+id] end             | I -> , id I        |
+| $end C I id ,       | **,** id id = id[id+id] end             |                    |
+| $end C I id         | **id** id = id[id+id] end               |                    |
+| $end C I            | **id** = id[id+id] end                  | I -> $\epsilon$    |
+| $end C              | **id** = id[id+id] end                  | C -> T=E C'        |
+| $end C C' E = T     | **id** = id[id+id] end                  | T -> id T'         |
+| $end C C' E = T' id | **id** = id[id+id] end                  |                    |
+| $end C C' E = T'    | **=** id[id+id] end                     | T' -> $\epsilon$   |
+| $end C C' E =       | **=** id[id+id] end                     |                    |
+| $end C C' E         | **id**[id+id] end                       | E -> T E'          |
+| $end C C' E' T      | **id**[id+id] end                       | T -> id T'         |
+| $end C C' E' T' id  | **id**[id+id] end                       |                    |
+| $end C C' E' T'     | **\[**id+id] end                        | T' -> [E]          |
+| $end C C' E ] E [   | **\[**id+id] end                        |                    |
+| $end C C' E ] E     | **id**+id] end                          |                    |
