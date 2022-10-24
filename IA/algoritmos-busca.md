@@ -65,3 +65,10 @@
   - Mais informações do que o estado atual
   - Exemplo de informação:
     - Estimativa de distância entre o nó atual e o objetivo
+
+**Gerar e testar**
+
+  - Busca Exaustiva (força bruta)
+  - Abordagem mais simples
+  - Custo computacional pode ser fator importante
+  - Não pressupõe conhecimento adicional

@@ -1,0 +1,61 @@
+
+% Joint Whois - whois.lacnic.net
+%  This server accepts single ASN, IPv4 or IPv6 queries
+
+% LACNIC resource: whois.lacnic.net
+
+
+% Copyright LACNIC lacnic.net
+%  The data below is provided for information purposes
+%  and to assist persons in obtaining information about or
+%  related to AS and IP numbers registrations
+%  By submitting a whois query, you agree to use this data
+%  only for lawful purposes.
+%  2022-10-18 21:17:01 (-03 -03:00)
+
+inetnum:     200.16.68.0/22
+status:      allocated
+aut-num:     AS52320
+owner:       GlobeNet Cabos Submarinos Colombia, S.A.S.
+ownerid:     CO-GCCO1-LACNIC
+responsible: Leonardo Cesar Almeida
+address:     Ave Cra 9 # 113 - 52 Oficina 801, 801, -
+address:     99999 - Bogota - DC
+country:     CO
+phone:       +1  5613140500 [0000]
+owner-c:     LCA51
+tech-c:      LCA51
+abuse-c:     LCA51
+inetrev:     200.16.71.0/24
+nserver:     NSM1.GLOBENET.NET [lame - not published]
+nsstat:      20221017 TIMEOUT
+nslastaa:    20221011
+inetrev:     200.16.68.0/24
+nserver:     NSM1.GLOBENET.NET [lame - not published]
+nsstat:      20221016 TIMEOUT
+nslastaa:    20221011
+inetrev:     200.16.69.0/24
+nserver:     NSM1.GLOBENET.NET [lame - not published]
+nsstat:      20221017 TIMEOUT
+nslastaa:    20221011
+inetrev:     200.16.70.0/24
+nserver:     NSM1.GLOBENET.NET [lame - not published]
+nsstat:      20221016 TIMEOUT
+nslastaa:    20221011
+created:     20110316
+changed:     20201028
+
+nic-hdl:     LCA51
+person:      LEONARDO CESAR ALMEIDA
+e-mail:      leonardo.almeida@globenet.net
+address:     Rua Casa do Ator, 919, 2o andar
+address:     04546-003 - Sao Paulo - Sao Paulo
+country:     BR
+phone:       +55 31 996183500 [0000]
+created:     20180821
+changed:     20220329
+
+% whois.lacnic.net accepts only direct match queries.
+% Types of queries are: POCs, ownerid, CIDR blocks, IP
+% and AS numbers.
+
