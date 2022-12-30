@@ -1,0 +1,11 @@
+# /bin/bash
+
+rm -rf output/*
+echo "file,time(microseconds)" >> output/count.csv;
+echo "file,time(microseconds)" >> output/quick.csv;
+
+for FILE in source/*/**; 
+do 
+  echo "$(basename $FILE),$(./main.x $FILE count)" >> output/count.csv;
+  echo "$(basename $FILE),$(./main.x $FILE quick)" >> output/quick.csv;
+done

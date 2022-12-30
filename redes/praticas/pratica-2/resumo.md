@@ -20,7 +20,7 @@ Se arquivos em diferentes servidores, então tem q abrir conexão com todos os s
 um get para cada obj
 
 Quando precisa ser autenticado
-401 - forbidden
+401 - unauthorized
 coloca senha
 Manda no Authorization do Header
 retorna http 200

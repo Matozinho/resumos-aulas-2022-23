@@ -233,3 +233,19 @@ T' -> [E] | $\epsilon$
 | $end C C' E' T'     | **\[**id+id] end                        | T' -> [E]          |
 | $end C C' E ] E [   | **\[**id+id] end                        |                    |
 | $end C C' E ] E     | **id**+id] end                          |                    |
+
+# Bottom-up
+
+- Menos restrições quanto à grámatica
+  - Prefixo comum não importa
+  - Pode ter recursão à esquerda
+- Inicia dos terminais e faz redução
+
+**Redução:** substituição do lado direito de uma produção pelo não 
+terminal correspondente (lado esquerdo)
+
+**Handle:** sequência  de  símbolos  do  lado  direito  da 
+produção,  tais  que  suas  reduções  levam,  no  final,  ao 
+símbolo inicial da gramática
+
+- Se a gramática é não ambígua, cada forma sentendial à direita tem um handle único
