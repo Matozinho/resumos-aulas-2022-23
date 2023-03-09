@@ -64,6 +64,9 @@ $$ t_{ea}=(1-p)t_{mem}+p(t_{page\_fault}+t_{swap\_in}+t_{swap\_out}+t_{restart})
 
 - A página que será substituída é a que está há mais tempo sem ser referenciada
 - Não tem anomalia de belady
+- **Inviável:** 
+  - Marcação de tempo não da pq tem estouro de de bit
+  - Cada acesso à memória, teria q escrever na tavela de páginas, que está na memória, o que é muito custoso
 
 ### **Algoritmos aproximados de LRU**
 

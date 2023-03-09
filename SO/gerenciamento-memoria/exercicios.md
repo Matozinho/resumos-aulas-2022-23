@@ -1,5 +1,5 @@
 1) Seguinte:\
-  a) $R =2^p$\
+  a) $R =2^d$\
     $R =2^3$\
     $R = 8bytes$
 
@@ -30,9 +30,9 @@
   fisico = Endereço inválido
 
 2) Seguinte\
-  a) $2^n=1024$\
-  $n=log_2(1024)$\
-  $n=10$
+  a) $2^d=1024$\
+  $d=log_2(1024)$\
+  $d=10$ bits
 
   b) $2^p=4194304$, sendo $p=22$\
   $4MiB$
