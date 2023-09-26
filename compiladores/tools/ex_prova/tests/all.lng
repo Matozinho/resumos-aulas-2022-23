@@ -1,0 +1,19 @@
+sum := x + y;
+
+read x;
+read y;
+
+if sum < 10 then
+    write 1
+  else
+    write 0
+end;
+
+i := 0;
+
+repeat 
+  write i;
+  i := i + 1
+until i < 10;
+
+complexCalc := (y+y) / (x-x) * y + x
